@@ -1,0 +1,201 @@
+<!doctype html>  
+<html lang="en">
+	
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript"
+  src="https://d3eoax9i5htok0.cloudfront.net/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+		<title>Suffix-Arrays</title>
+
+		<meta name="description" content="">
+		<meta name="author" content="André Röhrig">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+		
+		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+		
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/print.css" type="text/css" media="print">
+
+		<link rel="stylesheet" href="lib/zenburn.css">
+	</head>
+	
+	<body>
+		
+		<div id="reveal">
+
+			<!-- Used to fade in a background when a specific slide state is reached -->
+			<div class="state-background"></div>
+			
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Suffix-Arrays</h1>
+					<h3 class="inverted">Einführung und Anwendungen</h3>
+					<p>———</p>
+					<p>André Röhrig</p>
+					<script>
+						// Delicously hacky. Look away.
+						if( navigator.userAgent.match( /(iPhone|iPad|iPod|Android)/i ) ) document.write( '<p style="color: rgba(0,0,0,0.3); text-shadow: none;">('+'Tap to navigate'+')</p>' );
+					</script>
+				</section>
+				<section>
+					<p>"The main advantage of suffix arrays over suffix trees is that, in practice, they use three
+to five times less space.[…]It is believed that suffix arrays will prove to be better in practice than suffix trees for many applications."
+					</p>
+					<p>
+						<font color="#13DAEC"><i><small>- Udi Manber & Gene Myers </i> (1991)</small></font>
+					</p>
+				</section>
+				<section>
+					
+					<p class="fragment">adorno<font color="#13DAEC" class="fragment">$</font></p>
+					<ul>
+						<li class="fragment">A[0] = 6 &nbsp;&nbsp;&nbsp; $</li>
+						<li class="fragment">A[1] = 0 &nbsp;&nbsp;&nbsp; adorno$</li>
+						<li class="fragment">A[2] = 1 &nbsp;&nbsp;&nbsp; dorno$</li>
+						<li class="fragment">A[3] = 4 &nbsp;&nbsp;&nbsp; no$</li>
+						<li class="fragment">A[4] = 5 &nbsp;&nbsp;&nbsp; o$</li>
+						<li class="fragment">A[5] = 2 &nbsp;&nbsp;&nbsp; orno$</li>
+						<li class="fragment">A[6] = 3 &nbsp;&nbsp;&nbsp; rno$</li>
+					</ul>
+					<p>&nbsp;</p>
+					<p class="fragment">
+						A = <font color="#13DAEC">[</font>6,0,1,4,5,2,3<font color="#13DAEC">]</font>
+					</p>
+				</section>
+				<section><h2>Was tun?</h2><ul>
+						<li>Suffix-Arrays können mit Hilfe von Suffix-Trees erzeugt werden.</li>
+						<li>dazu wird Tiefensuche auf den Suffix-Tree angewendet</li>
+						<li>Tiefensuche benötigt O(n)</li>
+						<li>bekannt ist, dass Suffix-Trees in linearer Zeit erstellt werden können</li>
+						<li>daraus folgt die lineare Zeit der Konstruktion auf diesem Weg</li>
+					</ul>
+				</section>
+				<section><p>pollock$</p>
+				<p>…</p>
+				<p>B = [7,5,6,2,3,4,1,0]</p>
+				</section>
+				<section><h3>Direkte Konstruktion</h3>
+					<li>will man die Vorteile von Suffix-Arrays nutzen, ist der Weg über Suffix-Trees oft ausgeschlossen (vor allem wegen des zu großen Speicherbedarfs)</li>
+					<li>der Algorithmus von Udi Manber und Gene Myers war die erste Lösung für dieses Problem</li>
+					
+				</section>
+				<section>
+				<h3>Manber-Myers-Algorithmus</h3>
+					<li>nutzt Bucket-Sort</li>
+					<li>im ersten Schritt wird ein Array erstellt, das die Suffixe fortlaufend einreiht</li>
+					<li>für das hier verwendete Beispielwort "teteatete$" also:</li>
+					<li>A = [1,2,3,4,5,6,7,8,9,10]</li>
+				</section>
+				<section>
+				
+					<li>im ersten Sortierschritt werden die Suffixe anhand des ersten Zeichens in Buckets sortiert</li>
+					<li>zu beachten ist, dass Bucket-Sort stabil ist!</li>
+					
+				</section>
+				<section>
+				
+					<li>das Array sieht nach dem ersten Zeichen sortiert ergo so aus:</li>
+					<li>A = [10,5,2,4,7,9,1,3,6,8]</li>
+				</section>
+				<section>
+				
+					<li>die Sortierung nach dem zweiten Zeichen könnte man ebenso durchführen</li>
+					<li>effektiver ist es jedoch auszunutzen, dass bereits nach jedem zweiten Zeichen eines Suffixes sortiert wurde:</li>
+<li>denn jedes zweite Zeichen ist auch erstes Zeichen eines anderen Suffixes(abgesehen vom kleinsten Suffix "$")</li>
+				</section>
+				<section><li>es wird beim ersten Index des nach dem ersten Zeichen sortierten Arrays begonnen und der um eins höhere Index des neuen Arrays in seinem Bucket an erste Position einsortiert</li>
+				
+					
+				</section>
+				<section><li>beim dritten Zeichen kann auf bereits zwei Zeichen zurückgegriffen werden. Also 3 + 4 in einem Schritt.</li><li>Dann weiter die Zweierpotenzen in jeweils einem Schritt.</li><li>…</li>
+				
+					
+				</section>
+				<section><li>Laufzeit…</li>
+				
+					
+				</section>
+				<section><li>Binäre Suche</li><li>einfaches Verfahren</li><li>Problem: Laufzeit \(\mathcal{O}\)(m \(\cdot\) log n)</li>
+				
+					
+				</section>
+				<section><li>Verbesserte Binäre Suche</li>
+				
+					
+				</section>
+			</div>
+
+
+
+			<!-- The navigational controls UI -->
+			<aside class="controls">
+				<a class="left" href="#">&#x25C4;</a>
+				<a class="right" href="#">&#x25BA;</a>
+				<a class="up" href="#">&#x25B2;</a>
+				<a class="down" href="#">&#x25BC;</a>
+			</aside>
+
+			<!-- Displays presentation progress, max value changes via JS to reflect # of slides -->
+			<div class="progress"><span></span></div>
+			
+		</div>
+		
+		<script src="js/reveal.js"></script>
+
+		<!-- Optional libraries for code syntax highlighting and classList support in IE9 -->
+		<script src="lib/highlight.js"></script>
+		<script src="lib/classList.js"></script>
+		
+		<script>
+			// Parse the query string into a key/value object
+			var query = {};
+			location.search.replace( /[A-Z0-9]+?=(\w*)/gi, function(a) {
+				query[ a.split( '=' ).shift() ] = a.split( '=' ).pop();
+			} );
+
+			// Fires when a slide with data-state=customevent is activated
+			Reveal.addEventListener( 'customevent', function() {
+				alert( '"customevent" has fired' );
+			} );
+
+			// Fires each time a new slide is activated
+			Reveal.addEventListener( 'slidechanged', function( event ) {
+				// event.indexh & event.indexv
+			} );
+
+			Reveal.initialize({
+				// Display controls in the bottom right corner
+				controls: true,
+
+				// Display a presentation progress bar
+				progress: true,
+
+				// If true; each slide will be pushed to the browser history
+				history: true,
+
+				// Loops the presentation, defaults to false
+				loop: false,
+
+				// Flags if mouse wheel navigation should be enabled
+				mouseWheel: true,
+
+				// Apply a 3D roll to links on hover
+				rollingLinks: true,
+
+				// UI style
+				theme: query.theme || 'default', // default/neon
+
+				// Transition style
+				transition: query.transition || 'default' // default/cube/page/concave/linear(2d)
+			});
+
+			hljs.initHighlightingOnLoad();
+		</script>
+
+	</body>
+</html>
