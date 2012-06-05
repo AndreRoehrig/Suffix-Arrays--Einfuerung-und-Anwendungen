@@ -221,7 +221,7 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 
 				<section><h3>2. Sortierschritt</h3>
 					<ul><font face=monospace><p>&nbsp;</p>
-<li>$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10 <font color="#13DAEC" class="fragment>$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10</font></li>
+<li>$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10 <font color="#13DAEC" class="fragment" >$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10</font></li>
 <li>atete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[2]=5 <font color="#13DAEC" >&nbsp;atete$ &nbsp;&nbsp;&nbsp;&nbsp;A[2]=5</font></li>
 <li>eteatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=2 <font color="#13DAEC" >&nbsp;e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=9</font></li>
 <li>eatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[4]=4 <font color="#13DAEC" >&nbsp;eatete$ &nbsp;&nbsp;&nbsp;A[4]=4</font></li>
@@ -244,10 +244,21 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 				
 					
 				</section>
-				<section><h3>3. + 4. Sortierschritt</h3>
-PLATZHALTER
+				<section><h3>3. + 4. Sortierschritt</h3><ul><font face=monospace><p>&nbsp;</p>
+<li>$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10</li>
+<li>atete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[2]=5</li>
+<li>e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=9</li>
+<li>eatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[4]=4</li>
+<li>ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[5]=7</li>
+<li>eteatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=2</li>
+<li>te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8</li></ul>
+<li>teatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[8]=3</li> 
+<li>tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6</li>
+<li>teteatete$ &nbsp;&nbsp;&nbsp;&nbsp;A[7]=1</li>
+</font></ul>
+
 				</section>
-				<section><h3>Resümee Manber-Myers-Algorithmus</h3><ul><li>Laufzeit \(\mathcal{O}\)(m \(\cdot\) log n)</li><li>geringerer Speicherbedarf</li><p>&nbsp;</p><li>aber: keine inneren Knoten</li><li>deshalb weniger Anwendungen als Suffix-Trees</li></ul>
+				<section><h3>Resümee Manber-Myers-Algorithmus</h3><ul><li>Laufzeit \(\mathcal{O}\)(n \(\cdot\) log n)</li><li>geringerer Speicherbedarf (~4n Bytes)</li><p>&nbsp;</p><li>aber: keine inneren Knoten</li><li>deshalb weniger Anwendungen als Suffix-Trees</li></ul>
 				
 					
 				</section>
