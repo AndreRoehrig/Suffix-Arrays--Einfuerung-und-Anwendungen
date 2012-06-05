@@ -239,7 +239,7 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 					
 				</section>
 				<section><h3>3. Sortierschritt</h3><ul><li>Fortfahren wie in Schritt 1 und 2</li>
-					<li>Sortierung nach 1. und 2. Zeichen implizit = Sortierung nach 3. und 4. Zeichen (da Suffixe immer auch Suffix der anderen Suffixe)</li>
+					<li>Sortierung nach 1. und 2. Zeichen implizit Sortierung nach 3. und 4. Zeichen (da Suffixe immer auch Suffix der anderen Suffixe)</li>
 					<li>also: Sortierung nach dritten und vierten Zeichen in einem Schritt</li></ul>
 				
 					
@@ -258,7 +258,7 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 </font></ul>
 
 				</section>
-				<section><h3>Resümee Manber-Myers-Algorithmus</h3><ul><li>Laufzeit \(\mathcal{O}\)(n \(\cdot\) log n)</li><li>geringerer Speicherbedarf (~4n Bytes)</li><p>&nbsp;</p><li>aber: keine inneren Knoten</li><li>deshalb weniger Anwendungen als Suffix-Trees</li></ul>
+				<section><h3>Resümee Manber-Myers-Algorithmus</h3><ul><li>Laufzeit \(\mathcal{O}\)(n \(\cdot\) log n)</li><li>geringerer Speicherbedarf (~4n)</li><p>&nbsp;</p><li>aber: keine inneren Knoten</li><li>deshalb nicht alle Suffix-Tree-Algorithmen anwendbar</li></ul>
 				
 					
 				</section>
@@ -266,28 +266,36 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 				
 					
 				</section>
-				<section><h3>Binäre Suche</h3><li>einfaches Verfahren</li><li>Worst-Case-Komplexität \(\mathcal{O}\)(m \(\cdot\) log n)</li><li>im normalen Anwendungsfall aber deutlich schneller</li>
+				<section><h3>Binäre Suche</h3><ul><li>einfaches Verfahren</li><li>Worst-Case-Komplexität \(\mathcal{O}\))(m \(\cdot\) log n)</li><li>im normalen Anwendungsfall aber deutlich schneller</li></ul>
 				</section>
 				<section><h3>Verbesserte Binäre Suche</h3><ul>
 					<li>durch bekannte Informationen weniger Vergleiche ermöglichen</li>
 					<li>-> lcp: longest common prefix</li>
 					<li>die Länge des größten gemeinsamen Prefix zweier Suffixe wird zusätzlich gespeichert</li>
-					<li>wiederholte Zeichenvergleiche werden verhindert</li><li>Worst-Case: unverändert</li>
-					<li>aber: deutliche Verbesserung im Normalfall</li></ul>
+					<li>wiederholte Zeichenvergleiche werden verhindert</li><li>Worst-Case: O (m + log n)</li>
+					<li>aber auch: deutliche Verbesserung im Normalfall</li></ul>
 					
 				</section>
 				
 
-				<section><h3>Fazit und Ausblick</h3><ul>
-					<li>Linearzeitkonstruktion möglich</li>
-					<li>Enhanced Suffix-Arrays: funktional gleichwertig mit Suffix-Trees</li>
-					<li>PLATZHALTER FÜR TABELLE MIT ALGORITHMENVERGLEICH </li></ul>
+				<section><h3>Fazit und Ausblick: andere Algorithmen</h3><ul>
+					<li>Linearzeitkonstruktion möglich [Puglisi, Smyth, Turpin (2007). "A taxonomy of suffix array
+construction algorithms." ACM Computing Surveys 39(2).]</li>
+					<img src="./tabelle.png" alt="Tabelle"/>
+
+				</section><section>
+				<h3>Fazit und Ausblick: Enhanced Suffix-Arrays</h3><ul>
+					<li>funktional gleichwertig mit Suffix-Trees</li><li>Suffix-Tree Algorithmen können benutzt werden</li><li>allerdings aufwendiger zu erstellen und größerer Speicherverbrauch (lcp werden als Knotenersatz benutzt)</li><li>8n Speicherbedarf</li><li>[Abouelhoda, Kurtz, Ohlebusch (2004). "Replacing suffix trees with enhanced suffix arrays." Journal of Discrete Algorithms 2(1): 53-86]
+				
 
 				</section>
 				<section><h3>Quellen</h3>
-					
+					<ul><li>Udi Manber,Gene Myers; "Suffix arrays: a new method for on-line string searches" (1991)</li>
+					<li>Volker Heun;  Skriptum zur Vorlesung Algorithmen und Sequenzen (München 2007/08)</li><li>Dan Gusfield; Algorithms on Strings, Trees and Sequences,Cambridge University Press 1997</li><li>Abouelhoda, Kurtz, Ohlebusch; "Replacing suffix trees with enhanced suffix arrays." Journal of Discrete Algorithms 2(1): 53-86 (2004)</li><li>Ulf Leser; Algorithmische Bioinformatik: Suffixarrays (Berlin 2011/12)</li>
+				<li>Puglisi, Smyth, Turpin; "A taxonomy of suffix array construction algorithms." ACM Computing Surveys 39(2) (2007)</li>
 
 				</section>
+				<section> <h3>Folien: is.gd/suffixarray</h3><h3>Quelltext: https://github.com/AndreRoehrig </h3></section>
 			</div>
 
 
