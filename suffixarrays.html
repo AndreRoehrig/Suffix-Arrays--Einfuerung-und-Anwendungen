@@ -57,21 +57,21 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 					
 					<p class="fragment">adorno<font color="#13DAEC" class="fragment">$</font></p>
 					<ul>
-						<li class="fragment">A[0] = 6 &nbsp;&nbsp;&nbsp; $</li>
-						<li class="fragment">A[1] = 0 &nbsp;&nbsp;&nbsp; adorno$</li>
-						<li class="fragment">A[2] = 1 &nbsp;&nbsp;&nbsp; dorno$</li>
-						<li class="fragment">A[3] = 4 &nbsp;&nbsp;&nbsp; no$</li>
-						<li class="fragment">A[4] = 5 &nbsp;&nbsp;&nbsp; o$</li>
-						<li class="fragment">A[5] = 2 &nbsp;&nbsp;&nbsp; orno$</li>
-						<li class="fragment">A[6] = 3 &nbsp;&nbsp;&nbsp; rno$</li>
+						<li class="fragment">A[1] = 7 &nbsp;&nbsp;&nbsp; $</li>
+						<li class="fragment">A[2] = 1 &nbsp;&nbsp;&nbsp; adorno$</li>
+						<li class="fragment">A[3] = 2 &nbsp;&nbsp;&nbsp; dorno$</li>
+						<li class="fragment">A[4] = 5 &nbsp;&nbsp;&nbsp; no$</li>
+						<li class="fragment">A[5] = 6 &nbsp;&nbsp;&nbsp; o$</li>
+						<li class="fragment">A[6] = 3 &nbsp;&nbsp;&nbsp; orno$</li>
+						<li class="fragment">A[7] = 4 &nbsp;&nbsp;&nbsp; rno$</li>
 					</ul>
 					<p>&nbsp;</p>
 					<p class="fragment">
-						A = <font color="#13DAEC">[</font>6,0,1,4,5,2,3<font color="#13DAEC">]</font>
+						A = <font color="#13DAEC">[</font>7,1,2,5,6,3,4<font color="#13DAEC">]</font>
 					</p>
 				</section>
 				<section><h2>Was sind Suffix-Arrays?</h2><ul>
-						<li>Suffix-Arrays sind Integer-Arrays</li>
+						<li>Suffix-Arrays: Integer-Arrays</li>
 						<li>Suffixe <font color="#13DAEC">lexikographisch</font> sortiert</li>
 						<li>gespeichert werden die <font color="#13DAEC">Indizes</font> der Suffixe im String</li>
 						<li>Suffix-Arrays können Suffix-Trees ersetzen</li>
@@ -82,14 +82,14 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 						<li><font color="#13DAEC">naiver</font> Ansatz: alle Suffixe erstellen und dann lexikographisch sortieren</li>
 						<li>Suffix-Arrays können mit Hilfe von <font color="#13DAEC">Suffix-Trees</font> erzeugt werden.</li>
 						<li>dazu wird <font color="#13DAEC">Tiefensuche</font> auf den Suffix-Tree angewendet</li>
-						<li>Tiefensuche benötigt <font color="#13DAEC">\(\mathcal{O}\)(m)</font></li>
+						<li>Tiefensuche benötigt <font color="#13DAEC">\(\mathcal{O}\)(|Knoten|+|Kanten|)</font></li>
 						<li>bekannt: Suffix-Trees in linearer Zeit möglich</li>
 						<li>daraus folgt <font color="#13DAEC">lineare Zeit</font> der Konstruktion auf diesem Weg</li>
 					</ul>
 				</section>
 				<section><h2>Tiefensuche</h2><p><font color="#13DAEC">pollock$</font></p>
-				<img src="./tree.png" alt="FU-Logo"/>
-				<p>B = <font color="#13DAEC">[</font>7,5,6,2,3,4,1,0<font color="#13DAEC">]</font></p>
+				<img src="./tree.png" alt="Baum"/>
+				<p>B = <font color="#13DAEC">[</font>8,6,7,3,4,5,2,1<font color="#13DAEC">]</font></p>
 				</section>
 				<section><h3>Direkter Konstruktionsalgorithmus</h3><ul>
 					<li>Vorteil von Suffix-Arrays gegenüber Suffix-Trees in der Konstruktion</li>
@@ -100,11 +100,17 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 				</section><section>
 				<h3>Manber-Myers-Algorithmus</h3>
 					<ul><li>nutzt <font color="#13DAEC">Bucket-Sort</font></li>
-					<p>&nbsp;</p><li class="fragment">[992,90,13,10,12,99]</li>
-					<li class="fragment">[<font color="#13DAEC">9</font>92,<font color="#13DAEC">9</font>0,<font color="#13DAEC">1</font>3,<font color="#13DAEC">1</font>0,<font color="#13DAEC">1</font>2,<font color="#13DAEC">9</font>9]</li>
-					<li class="fragment">[13,10,12|992,90,99]</li>
-					<li class="fragment">[1<font color="#13DAEC">3</font>,1<font color="#13DAEC">0</font>,1<font color="#13DAEC">2</font>|9<font color="#13DAEC">9</font>2,9<font color="#13DAEC">0</font>,9<font color="#13DAEC">9</font>]</li>
-					<li class="fragment">[10|12|13||90|992,99]</li><p>&nbsp;</p>
+					<p>&nbsp;</p><li class="fragment">[992,090,013,010,012,099]</li>
+	<li class="fragment">[<font color="#13DAEC">9</font>92,<font color="#13DAEC">0</font>90,<font color="#13DAEC">0</font>13,<font color="#13DAEC">0</font>10,<font color="#13DAEC">0</font>12,<font color="#13DAEC">0</font>99]</li><p>&nbsp;</p>
+	
+	
+	<li class="fragment">[090,013,010,012,099|992]</li>
+	<li class="fragment">[0<font color="#13DAEC">9</font>0,0<font color="#13DAEC">1</font>3,0<font color="#13DAEC">1</font>0,0<font color="#13DAEC">1</font>2,0<font color="#13DAEC">9</font>9|992]</li>
+	<p>&nbsp;</p>
+	<li class="fragment">[013,010,012|090,099|||992]</li>
+	<li class="fragment">[01<font color="#13DAEC">3</font>,01<font color="#13DAEC">0</font>,01<font color="#13DAEC">2</font>|09<font color="#13DAEC">0</font>,09<font color="#13DAEC">9</font>|||992]</li><p>&nbsp;</p>
+	<li class="fragment">[010|012|013|||090|099|||||992]</li>
+					<p>&nbsp;</p>
 					<li class="fragment">Bucket-Sort ist stabil!</li></ul>
 				</section>
 				<section>
@@ -130,20 +136,19 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 					
 				</section>
 				<section><h3>1. Sortierschritt</h3>
-					<li>anhand des ersten Zeichens in Buckets sortiert</li><ul><font face=monospace><p>&nbsp;</p>
-<li>$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10 
-<li>atete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[2]=5</li>
-<li>eteatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=2</li>
-<li>eatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[4]=4</li>
-<li>ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[5]=7</li>
-<li>e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=9</li>
-<li>teteatete$ &nbsp;&nbsp;&nbsp;&nbsp;A[7]=1</li>
-<li>teatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[8]=3</li>
-<li>tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6</li>
-<li>te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8</li>
-
-
-					</font>
+					<ul><p>&nbsp;</p>
+<li><font face=monospace class="fragment" color="#13DAEC">$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10 </font></li>
+<li><font face=monospace class="fragment">atete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[2]=5 </font></li>
+<li><font face=monospace class="fragment" color="#13DAEC">eteatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=2</font></li>
+<li><font face=monospace class="fragment" color="#13DAEC">eatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[4]=4</font></li>
+<li><font face=monospace class="fragment" color="#13DAEC">ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[5]=7</font></li>
+<li><font face=monospace class="fragment" color="#13DAEC">e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=9</font></li>
+<li><font face=monospace class="fragment">teteatete$ &nbsp;&nbsp;&nbsp;&nbsp;A[7]=1</font></li>
+<li><font face=monospace class="fragment">teatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[8]=3</font></li>
+<li><font face=monospace class="fragment">tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6</font></li>
+<li><font face=monospace class="fragment">te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8</font></li>
+<p>&nbsp;</p>
+				<font  class="fragment">	A = [10,5,2,4,7,9,1,3,6,8] </font>
 			</ul>		
 
 					
@@ -156,17 +161,76 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 					<li>denn jedes zweite Zeichen ist auch erstes Zeichen eines anderen Suffix(abgesehen vom jeweils kleinsten Suffix; hier: "$")</li>
 				</section>
 				<section><h3>2. Sortierschritt</h3>
-					<li>"e-Bucket" sortiert nach dem zweiten Zeichen</li><ul><font face=monospace><p>&nbsp;</p>
+					<ul><font face=monospace><p>&nbsp;</p>
 <li>$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10</li>
 <li>atete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[2]=5</li>
 <li>eteatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=2 <font color="#13DAEC" class="fragment">&nbsp;e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=9</font></li>
 <li>eatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[4]=4 <font color="#13DAEC" class="fragment">&nbsp;eatete$ &nbsp;&nbsp;&nbsp;A[4]=4</font></li>
-<li>ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[5]=7 <font color="#13DAEC" class="fragment">&nbsp;eteatete$ &nbsp;A[5]=2</font></li>
-<li>e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=9 <font color="#13DAEC" class="fragment">&nbsp;ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=7</font></li>
-<li>teteatete$ &nbsp;&nbsp;&nbsp;&nbsp;A[7]=1</li>
-<li>teatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[8]=3</li>
-<li>tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6</li>
-<li>te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8</li>
+<li>ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[5]=7  </li>
+<li>e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=9 </li>
+<li>teteatete$ &nbsp;&nbsp;&nbsp;&nbsp;A[7]=1<font color="#13DAEC" class="fragment">&nbsp;&nbsp;teteatete$ A[7]=1</font></li>
+<li>teatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[8]=3 <font color="#13DAEC" class="fragment">&nbsp;teatete$ &nbsp;&nbsp;A[8]=3 </font></li>
+<li>tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6 <font color="#13DAEC" class="fragment">&nbsp;tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6 </font></li>
+<li>te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8 <font color="#13DAEC" class="fragment">te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8 </font></li>
+
+
+					</font>
+			</ul>		
+				
+					
+				</section>
+				<section><h3>2. Sortierschritt</h3>
+					<ul><font face=monospace><p>&nbsp;</p>
+<li>$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10</li>
+<li>atete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[2]=5</li>
+<li>eteatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=2 <font color="#13DAEC" >&nbsp;e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=9</font></li>
+<li>eatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[4]=4 <font color="#13DAEC" >&nbsp;eatete$ &nbsp;&nbsp;&nbsp;A[4]=4</font></li>
+<li>ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[5]=7  <font color="#13DAEC" class="fragment" >&nbsp;eteatete$ &nbsp;A[5]=2</font></li> 
+<li>e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=9 </li>
+<li>teteatete$ &nbsp;&nbsp;&nbsp;&nbsp;A[7]=1<font color="#13DAEC" >&nbsp;&nbsp;teteatete$ A[7]=1</font></li>
+<li>teatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[8]=3 <font color="#13DAEC" >&nbsp;teatete$ &nbsp;&nbsp;A[8]=3 </font></li>
+<li>tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6 <font color="#13DAEC" >&nbsp;tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6 </font></li>
+<li>te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8 <font color="#13DAEC" >te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8 </font></li>
+
+
+					</font>
+			</ul>		
+				
+					
+				</section>
+
+				<section><h3>2. Sortierschritt</h3>
+					<ul><font face=monospace><p>&nbsp;</p>
+<li>$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10</li>
+<li>atete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[2]=5 <font color="#13DAEC" class="fragment">&nbsp;atete$ &nbsp;&nbsp;&nbsp;&nbsp;A[2]=5</font></li>
+<li>eteatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=2 <font color="#13DAEC" >&nbsp;e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=9</font></li>
+<li>eatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[4]=4 <font color="#13DAEC" >&nbsp;eatete$ &nbsp;&nbsp;&nbsp;A[4]=4</font></li>
+<li>ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[5]=7  <font color="#13DAEC" >&nbsp;eteatete$ &nbsp;A[5]=2</font></li> 
+<li>e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=9  <font color="#13DAEC" class="fragment" >&nbsp;ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=7</font></li>
+<li>teteatete$ &nbsp;&nbsp;&nbsp;&nbsp;A[7]=1<font color="#13DAEC" >&nbsp;&nbsp;teteatete$ A[7]=1</font></li>
+<li>teatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[8]=3 <font color="#13DAEC" >&nbsp;teatete$ &nbsp;&nbsp;A[8]=3 </font></li>
+<li>tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6 <font color="#13DAEC" >&nbsp;tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6 </font></li>
+<li>te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8 <font color="#13DAEC" >te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8 </font></li>
+
+
+					</font>
+			</ul>		
+				
+					
+				</section>
+
+				<section><h3>2. Sortierschritt</h3>
+					<ul><font face=monospace><p>&nbsp;</p>
+<li>$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10 <font color="#13DAEC" class="fragment" >$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[1]=10</font></li>
+<li>atete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[2]=5 <font color="#13DAEC" >&nbsp;atete$ &nbsp;&nbsp;&nbsp;&nbsp;A[2]=5</font></li>
+<li>eteatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=2 <font color="#13DAEC" >&nbsp;e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[3]=9</font></li>
+<li>eatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[4]=4 <font color="#13DAEC" >&nbsp;eatete$ &nbsp;&nbsp;&nbsp;A[4]=4</font></li>
+<li>ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[5]=7  <font color="#13DAEC" >&nbsp;eteatete$ &nbsp;A[5]=2</font></li> 
+<li>e$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=9  <font color="#13DAEC"  >&nbsp;ete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[6]=7</font></li>
+<li>teteatete$ &nbsp;&nbsp;&nbsp;&nbsp;A[7]=1<font color="#13DAEC" >&nbsp;&nbsp;teteatete$ A[7]=1</font></li>
+<li>teatete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[8]=3 <font color="#13DAEC" >&nbsp;teatete$ &nbsp;&nbsp;A[8]=3 </font></li>
+<li>tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6 <font color="#13DAEC" >&nbsp;tete$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[9]=6 </font></li>
+<li>te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8 <font color="#13DAEC" >te$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;A[10]=8 </font></li>
 
 
 					</font>
