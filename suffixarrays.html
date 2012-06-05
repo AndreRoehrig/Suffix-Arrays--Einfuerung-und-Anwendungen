@@ -239,8 +239,8 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 					
 				</section>
 				<section><h3>3. Sortierschritt</h3><ul><li>Fortfahren wie in Schritt 1 und 2</li>
-					<li>Sortierung nach 1. und 2. Zeichen implizit Sortierung nach 3. und 4. Zeichen (da Suffixe immer auch Suffix der anderen Suffixe)</li>
-					<li>also: Sortierung nach dritten und vierten Zeichen in einem Schritt</li></ul>
+					<li>Sortierung nach 1. und 2. Zeichen <font color="#13DAEC">implizit</font> Sortierung nach 3. und 4. Zeichen (da Suffixe immer auch Suffix der anderen Suffixe)</li>
+					<li>also: Sortierung nach dritten und vierten Zeichen in <font color="#13DAEC">einem Schritt</font></li></ul>
 				
 					
 				</section>
@@ -258,7 +258,7 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 </font></ul>
 
 				</section>
-				<section><h3>Resümee Manber-Myers-Algorithmus</h3><ul><li>Laufzeit \(\mathcal{O}\)(n \(\cdot\) log n)</li><li>geringerer Speicherbedarf (~4n)</li><p>&nbsp;</p><li>aber: keine inneren Knoten</li><li>deshalb nicht alle Suffix-Tree-Algorithmen anwendbar</li></ul>
+				<section><h3>Resümee Manber-Myers-Algorithmus</h3><ul><li>Laufzeit \(\mathcal{O}\)(n \(\cdot\) log n)</li><li>geringerer Speicherbedarf (~4n)</li><p>&nbsp;</p><li>aber: <font color="#13DAEC">keine</font> inneren Knoten</li><li>deshalb nicht alle Suffix-Tree-Algorithmen anwendbar</li></ul>
 				
 					
 				</section>
@@ -266,13 +266,13 @@ to five times less space.[…]It is believed that suffix arrays will prove to be
 				
 					
 				</section>
-				<section><h3>Binäre Suche</h3><ul><li>einfaches Verfahren</li><li>Worst-Case-Komplexität \(\mathcal{O}\))(m \(\cdot\) log n)</li><li>im normalen Anwendungsfall aber deutlich schneller</li></ul>
+				<section><h3>Binäre Suche</h3><ul><li><font color="#13DAEC">einfaches</font> Verfahren</li><li>Worst-Case-Komplexität \(\mathcal{O}\)(m \(\cdot\) log n)</li><li>im normalen Anwendungsfall aber deutlich <font color="#13DAEC">schneller</font></li></ul>
 				</section>
 				<section><h3>Verbesserte Binäre Suche</h3><ul>
-					<li>durch bekannte Informationen weniger Vergleiche ermöglichen</li>
-					<li>-> lcp: longest common prefix</li>
-					<li>die Länge des größten gemeinsamen Prefix zweier Suffixe wird zusätzlich gespeichert</li>
-					<li>wiederholte Zeichenvergleiche werden verhindert</li><li>Worst-Case: O (m + log n)</li>
+					<li>durch bekannte Informationen <font color="#13DAEC">weniger</font> Vergleiche ermöglichen</li>
+					<li>lcp: longest common prefix</li>
+					<li>die Länge des größten gemeinsamen Prefix zweier Suffixe wird <font color="#13DAEC">zusätzlich gespeichert</font></li>
+					<li><font color="#13DAEC">wiederholte</font> Zeichenvergleiche werden <font color="#13DAEC">verhindert</font></li><li>Worst-Case: \(\mathcal{O}\)(m + log n)</li>
 					<li>aber auch: deutliche Verbesserung im Normalfall</li></ul>
 					
 				</section>
@@ -285,7 +285,7 @@ construction algorithms." ACM Computing Surveys 39(2).]</li>
 
 				</section><section>
 				<h3>Fazit und Ausblick: Enhanced Suffix-Arrays</h3><ul>
-					<li>funktional gleichwertig mit Suffix-Trees</li><li>Suffix-Tree Algorithmen können benutzt werden</li><li>allerdings aufwendiger zu erstellen und größerer Speicherverbrauch (lcp werden als Knotenersatz benutzt)</li><li>8n Speicherbedarf</li><li>[Abouelhoda, Kurtz, Ohlebusch (2004). "Replacing suffix trees with enhanced suffix arrays." Journal of Discrete Algorithms 2(1): 53-86]
+					<li><font color="#13DAEC">funktional gleichwertig</font> mit Suffix-Trees</li><li>Suffix-Tree Algorithmen können benutzt werden</li><li>allerdings <font color="#13DAEC">aufwendiger</font> zu erstellen und <font color="#13DAEC">größerer Speicherverbrauch</font> (lcp werden als Knotenersatz benutzt)</li><li>8n Speicherbedarf</li><li>[Abouelhoda, Kurtz, Ohlebusch (2004). "Replacing suffix trees with enhanced suffix arrays." Journal of Discrete Algorithms 2(1): 53-86]
 				
 
 				</section>
@@ -338,7 +338,7 @@ construction algorithms." ACM Computing Surveys 39(2).]</li>
 
 			Reveal.initialize({
 				// Display controls in the bottom right corner
-				controls: true,
+				controls: false,
 
 				// Display a presentation progress bar
 				progress: true,
