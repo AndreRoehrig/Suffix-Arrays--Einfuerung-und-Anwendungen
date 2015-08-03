@@ -1,0 +1,219 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Journal Article
+% LaTeX Template
+% Version 1.1 (25/11/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[twoside]{article}
+
+
+\usepackage{amsmath}
+\usepackage{etex}
+\usepackage{tikz}
+\usetikzlibrary{trees}
+\usepackage{syntax}
+\usepackage{listings}
+\usepackage{color}
+
+\usepackage[utf8x]{inputenc}
+\usepackage[ngerman]{babel}
+
+\usepackage[sc]{mathpazo} % Use the Palatino font
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\linespread{1.05} % Line spacing - Palatino needs more space between lines
+\usepackage{microtype} % Slightly tweak font spacing for aesthetics
+
+\usepackage[hmarginratio=1:1,top=32mm,columnsep=20pt]{geometry} % Document margins
+\usepackage{multicol} % Used for the two-column layout of the document
+\usepackage{hyperref} % For hyperlinks in the PDF
+
+\usepackage[hang, small,labelfont=bf,up,textfont=it,up]{caption} % Custom captions under/above floats in tables or figures
+\usepackage{booktabs} % Horizontal rules in tables
+\usepackage{float} % Required for tables and figures in the multi-column environment - they need to be placed in specific locations with the [H] (e.g. \begin{table}[H])
+
+\usepackage{lettrine} % The lettrine is the first enlarged letter at the beginning of the text
+\usepackage{paralist} % Used for the compactitem environment which makes bullet points with less space between them
+
+\usepackage{abstract} % Allows abstract customization
+\renewcommand{\abstractnamefont}{\normalfont\bfseries} % Set the "Abstract" text to bold
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape} % Set the abstract itself to small italic text
+
+
+\setcounter{secnumdepth}{5}
+\usepackage{titlesec} % Allows customization of titles
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\paragraph}{\large\bfseries}
+% Change the look of the subsection titles
+
+\usepackage{fancyhdr} % Headers and footers
+\pagestyle{fancy} % All pages have headers and footers
+\fancyhead{} % Blank out the default header
+\fancyfoot{} % Blank out the default footer
+\fancyhead[C]{August 2015 $\bullet$ Freie Universität Berlin} % Custom header text
+\fancyfoot[RO,LE]{\thepage} % Custom footer text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\title{\vspace{-15mm}\fontsize{24pt}{10pt}\selectfont\textbf{Suffixarrays:
+    Einführung und Anwendungen
+}} % Article title
+
+\author{
+\large
+\textsc{André Röhrig} \\ % Your name
+\normalsize \href{mailto:andre.roehrig@fu-berlin.de}{andre.roehrig@fu-berlin.de} % Your email address
+\vspace{-5mm}
+}
+\date{}
+
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+
+\maketitle % Insert title
+
+\thispagestyle{fancy} % All pages have headers and footers
+%----------------------------------------------------------------------------------------
+%	ABSTRACT
+%----------------------------------------------------------------------------------------
+
+\begin{abstract}Das Suffixarray ist eine Struktur, welche
+  die Suffixe eines Strings lexikografisch sortiert anhand
+  ihrer Indizes angibt. Hier werde ich zum Zwecke der
+  Einführung die grundlegenden Ideen dieser Struktur
+  darstellen, den Konstruktionsalgortihmus von Manber und
+  Myers präsentieren, sowie
+  Anwendungsmöglichkeiten, insbesondere im Vergleich mit
+  Suffixtrees, beurteilen.
+
+\noindent
+
+\end{abstract}
+%----------------------------------------------------------------------------------------
+%	ARTICLE CONTENTS
+%----------------------------------------------------------------------------------------
+
+% \begin{multicols}{1} % Two-column layout throughout the main article text
+\section{Einleitung}
+Suffixbäume sind eine häufig genutzte Datenstruktur für
+viele Anwendungsfälle des Pattern Matchings. Mit diesen eng
+verwandt sind Suffixarrays. So können diese für einen
+Großteil der Anwendungen jener Datenstruktur benutzt werden,
+wobei der entscheidende Vorteil, der für die häufige Nutzung
+der Suffixarrays verantwortlich ist, der geringere
+Speicherbedarf ist(für beide gilt $\mathcal{O}$(n), doch während
+eine aktuelle Suffixbaum-Implementation 13-15 Bytes pro
+Zeichen benötigt, kommen Suffixarrays aktueller
+Implementationen mit 5+o(1) Bytes aus). \\
+Die Grundidee des Pattern Matchings mit Suffixarrays ist es einen vorhandenen
+Text in alle möglichen Suffixe aufzuteilen. Diese Suffixe
+werden durch die Indizes ihrer Position im Text vertreten in einem Array
+lexikografisch sortiert gespeichert. Seit die Datenstruktur
+19xx von xx und xx vorgeschlagen wurde, wurde eine große
+Anzahl von Konstruktionsalgorithmen für Suffixarrays
+entwickelt. Der Algorithmus von Manber und Myers wird hier
+im Folgenden vorgestellt.
+Auch sind in den letzten xx Jahren viele Möglichkeiten des
+Suchens eingeführt worden. Die naheliegende und für die
+Einfachheit erstaunlich effeziente Möglichkeit über
+Binary-Search zu suchen wird in dieser Einführung zur
+Darstellung genutzt.
+Danach ist die Darstellung der Berechnung von lcp
+vorgesehen. Diese sind für
+
+\section{Suche}
+Ein für seine Einfachheit erstaunlich effizienter Suchalgorithmus soll hier
+vorgestellt werden. Dieser stellt eine Anwendung des Prinzips der Binären Suche
+auf Suffixarrays dar.
+Sei Pos ein lexikografisch sortiertes Arrays der Suffixe eines Strings S, wobei
+Pos[k] die Position des ersten Zeichen in S des k-kleinsten Suffix in der Menge
+aller Suffixe angibt.
+Wollen wir nun alle Vorkommen eines Strings W=w0 w1 w2 ... wp-1 der Länge P <= N
+in S finden, so müssen wir das lexikografisch kleinste (Lw) und größte Suffix (Rw) finden,
+für die W Präfix ist.
+Lw findet man, indem man Binäre Suche anwendet auf Pos mit dem Suchwort W mit der
+Suchrelation <= als Vergleichsoperation der jeweiligen Teilungsschritte des Arrays.
+Für Rw analog mit >=.
+Hat man Lw und Rw gefunden, so macht man sich zunutze, dass die Suffixe lexikografisch sortiert
+sind und also alle zu findenden Suffixe in Pos zu finden sind, indem man ab Pos[Lw]
+die Anzahl Rw-Lw+1 Suffixe als die gesuchten Einträge registriert.
+
+Die Suche nach Lw und Rw hat jeweils O(log N) Vergleiche von Strins mit jeweils
+O(P) Zeichenvergleichen, wobei P die Länge von W ist. Daher erlaubt uns das Suffixarray
+Pos alle Vorkommen von W in einer Laufzeit von O(P*log N) zu finden.
+
+\begin{lstlisting} [frame=single]
+if W <= S pos[0]:
+    Lw = 0
+
+else if W > S pos[N-1]:
+    Lw = N
+
+else:
+    L, R = 0, N-1
+    while R-L > 1:
+        M = (L+R) / 2
+        if W <= S pos[M]:
+            R = M
+        else:
+            L = M
+    Lw = R
+
+
+\end{lstlisting}
+
+\section{Konstruktion}
+Analog zu Suffixtrees ist die größte Herausforderung für die Nutzung von
+Suffixarrays in theoretischer Hinsicht die Entwicklung von Algorithmen zur
+Konstruktion dieser Datenstruktur.
+\subsection{Naiver Ansatz}
+Eine erste mögliche Methode der Konstruktion eines Suffixarrays ist die Nutzung
+eines bereits auf anderem Wege konstruierten Suffixtrees. Die Verwendung von
+Tiefensuche auf dem Suffixtree liefert in Reihenfolge die erforderlichen Suffixe.
+
+Dieser Ansatz widerspricht jedoch der Ratio für die Verwendung von Suffixarrays:
+einem geringen Bedarf an Speicher.
+Wenn man also den Umweg über einen zuerst zu konstruierenden Suffixtree geht, so
+geht eben dieser Vorteil, die Vermeidung des großen Speicherbedarfs, der für die
+Konstruktion von Suffixtrees anfällt, verloren.
+Es müssen also gesondert für die Konstruktion von Suffixarrays entwickelte
+Algorithmen gefunden werden, um eine sinnvolle Nutzung dieser Datenstruktur in
+der Praxis zu ermöglichen.
+Im Folgenden wird der von Udi Manber und Gene Myers im Jahre 1989 veröffentlichte
+Algorithmus vorgestellt werden
+
+\subsection{Manber-Myers-Algorithmus}
+Die Idee für den Konstruktionsalgorithmus ist die Folgende: Da die Suffixe aller
+Suffixe des Suffixarrays auch wieder Suffixe des Suffixarrays sind, lässt sich
+nach der Sortierung nach n Zeichen für die Sortierung nach 2n Zeichen ausnutzen,
+dass nach den nächsten n Zeichen der zu sortierenden Suffixe bereits sortiert
+wurde, nämlich die nächsten n Zeichen bereits sortierter Teil (Präfix) eines Suffix
+sind.
+
+Für die Konstruktion bedarf es dreier Integerarrays Pos, Prm und Count, wobei Pos das
+zu konstruierende Suffixarray ist und zweier Booleanarrays, BH und B2H.
+
+\section{lcp}
+
+
+% \end{multicols}
+
+\end{document}
