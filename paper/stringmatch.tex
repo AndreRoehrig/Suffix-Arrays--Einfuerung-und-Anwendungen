@@ -208,8 +208,28 @@ dass nach den nächsten n Zeichen der zu sortierenden Suffixe bereits sortiert
 wurde, nämlich die nächsten n Zeichen bereits sortierter Teil (Präfix) eines Suffix
 sind.
 
+Der Algorithmus nutzt für die Sortierung Bucket Sort, wobei in einem Bucket schrittweise
+jene Suffixe aufbewahrt werden, die nach der Anzahl bereits sortierter Zeichen
+lexikografisch in der gleichen Ordnung auftreten: Nach zwei sortierten Zeichen
+wären z.B. die Suffixe "`te"' und "`tete"' im gleichen Bucket.
+
 Für die Konstruktion bedarf es dreier Integerarrays Pos, Prm und Count, wobei Pos das
-zu konstruierende Suffixarray ist und zweier Booleanarrays, BH und B2H.
+zu konstruierende Suffixarray und Prm die Inversion von Pos ist, und zweier
+Booleanarrays, BH und B2H. Das Array BH hat an den Positionen eine 1, die das Suffix, das
+am weitesten links in einem Bucket ist, kennzeichnen. Die Arrays B2H und Count
+sind temporäre Hilfsarrays, deren Funktion in der Folge erläutert wird.
+Die Sortierung nach dem ersten
+Zeichen und entsprechende Initialisierung der anderen Arrays kann mit Hilfe
+von Radixsort in O(N) vorgenommen werden. \\
+
+
+Nun soll der Schritt der Verdopplung der Anzahl der Zeichen, nach denen sortiert
+wurde, erfolgen, wenn also bisher nach H Zeichen sortiert wurde, soll im nächsten
+Schritt nach 2H Zeichen sortiert worden sein.
+Zuerst wird für alle i Count[i] auf 0 gesetzt. Mit Hilfe des Arrays BH wird Prm[i]
+für alle i auf das am weitesten linke Suffix des jeweiligen Bucket zeigen anstatt
+der genauen Position des Suffix.
+
 
 \section{lcp}
 
