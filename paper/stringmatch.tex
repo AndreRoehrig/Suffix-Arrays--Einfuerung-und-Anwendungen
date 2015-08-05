@@ -228,10 +228,76 @@ wurde, erfolgen, wenn also bisher nach H Zeichen sortiert wurde, soll im nächst
 Schritt nach 2H Zeichen sortiert worden sein.
 Zuerst wird für alle i Count[i] auf 0 gesetzt. Mit Hilfe des Arrays BH wird Prm[i]
 für alle i auf das am weitesten linke Suffix des jeweiligen Bucket zeigen anstatt
-der genauen Position des Suffix.
+der genauen Position des Suffix. Diese beiden Operationen können in O(n) absolviert werden.
+Anschließend gehen wir der Reihe nach Pos ab, Bucket für Bucket. Seien l und r
+die Abgrenzungen eines Buckets (den wir aus dem vorherigen Sortierschritt erhalten haben).
+Sei Ti Pos[i]-H, also ein Verweis auf jenes Suffix, das das mit Pos[i] referenzierte
+Suffix weniger der ersten H Zeichen ist. Auf diese Art und Weise nutzen wir die
+Tatsache aus, dass das Suffix mit der Anzahl H weniger Zeichen bereits nach den
+ersten H Zeichen sortiert worden ist. Für jedes i, l <= i <= r erhöhen wir Count[Prm[Ti]]
+um 1, setzten Prm[Ti] = Prm[Ti] + Count[Prm[Ti]] - 1, und setzten B2H[Prm[Ti]]
+auf 1.
+Damit werden alle Suffixe deren Symbole von H + 1 bis 2H gleich dem Präfix der
+Länge H des aktuellen Buckets sind an die Spitze ihres Buckets in Prm gesetzt.
+Pos wird erst im Anschluss aktualisiert. Die Liste B2H markiert, wo Präfixe
+bewegt worden sind. \\
+
+Vor dem nächsten Bucket, das sortiert wird, gehen wir noch einmal über den Bucket,
+finden alle bewegten Suffixe und setzen das Array B2H derart auf 0, so dass nur
+noch die linkeste Position eines jeden neues Buckets der Sortierung nach 2H Zeichen
+mit einer 1 markiert ist.
+
+Zuletzt aktualisieren wir Pos, wobei wir nutzen das Prm die Inversion von Pos ist,
+und setzen BH auf den Wert von B2H am Ende der Sortierung nach 2H Zeichen. \\
+
+Diese Schritte können in 0(N) durchgeführt werden. Es gibt höchstens log(N)
+Durchführungen der Verdopplung der sortierten Zeichen und darum kann die ganze
+Sortierung des Suffixarrays in O(N log N) ausgeführt werden mit dem Algorithmus
+von Manber und Myers.
+
+\begin{lstlisting} [frame=single]
+if W <= S pos[0]:
+    Lw = 0
+
+else if W > S pos[N-1]:
+    Lw = N
+
+else:
+    L, R = 0, N-1
+    while R-L > 1:
+        M = (L+R) / 2
+        if W <= S pos[M]:
+            R = M
+        else:
+            L = M
+    Lw = R
+
+for i in buckets[l,r]:
+    Count[l] = 0
+    for i in [l,r]:
+        Prm[Pos[c]] = l
+
+d = N - H
+e = Prm[d]
+Prm[d] = e + Count[e]
+Count[e] = Count[e] + 1
+B2H[Prm[d]] = True
+for bucket[l,r]:         # in Reihenfolge der bisher erfolgten Sortierung der Buckets
+    for d in (Pos[c]-H) where c in [l,r]:
+        e = Prm[d]
+        Prm[d] = e + Count[e]
+        Count[e] = Count[e] + 1
+        B2H[Prm[d]] = True
+
+    for d in (Pos[c]-H) where c in [l,r]:
+        if B2H[Prm[d]]:
+            e = 
 
 
-\section{lcp}
+\end{lstlisting}
+
+
+\section{Quellen}
 
 
 % \end{multicols}
