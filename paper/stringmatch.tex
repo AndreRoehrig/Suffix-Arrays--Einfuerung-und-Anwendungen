@@ -189,11 +189,11 @@ für alle i auf das am weitesten linke Suffix des jeweiligen Bucket zeigen ansta
 der genauen Position des Suffix. Diese beiden Operationen können in $\mathcal{O}(n)$ absolviert werden.
 Anschließend gehen wir der Reihe nach Pos ab, Bucket für Bucket. Seien l und r
 die Abgrenzungen eines Buckets (den wir aus dem vorherigen Sortierschritt erhalten haben).
-Sei Ti Pos[i]-H, also ein Verweis auf jenes Suffix, das das mit Pos[i] referenzierte
+Sei $T_{i}$ Pos[i]-H, also ein Verweis auf jenes Suffix, das das mit Pos[i] referenzierte
 Suffix weniger der ersten H Zeichen ist. Auf diese Art und Weise nutzen wir die
 Tatsache aus, dass das Suffix mit der Anzahl H weniger Zeichen bereits nach den
-ersten H Zeichen sortiert worden ist. Für jedes i, l <= i <= r erhöhen wir Count[Prm[Ti]]
-um 1, setzten Prm[Ti] = Prm[Ti] + Count[Prm[Ti]] - 1, und setzten B2H[Prm[Ti]]
+ersten H Zeichen sortiert worden ist. Für jedes i, l $\le$ i $\le$ r, erhöhen wir Count[Prm[$T_{i}$]]
+um 1, setzten Prm[$T_{i}$] = Prm[$T_{i}$] + Count[Prm[$T_{i}$]] - 1, und setzten B2H[Prm[$T_{i}$]]
 auf 1.
 Damit werden alle Suffixe deren Symbole von H + 1 bis 2H gleich dem Präfix der
 Länge H des aktuellen Buckets sind an die Spitze ihres Buckets in Prm gesetzt.
@@ -205,12 +205,12 @@ finden alle bewegten Suffixe und setzen das Array B2H derart auf 0, so dass nur
 noch die linkeste Position eines jeden neues Buckets der Sortierung nach 2H Zeichen
 mit einer 1 markiert ist.
 
-Zuletzt aktualisieren wir Pos, wobei wir nutzen das Prm die Inversion von Pos ist,
+Zuletzt aktualisieren wir Pos, wobei wir nutzen, dass Prm die Inversion von Pos ist,
 und setzen BH auf den Wert von B2H am Ende der Sortierung nach 2H Zeichen. \\
 
-Diese Schritte können in 0(N) durchgeführt werden. Es gibt höchstens log(N)
+Diese Schritte können in $\mathcal{O}(n)$ durchgeführt werden. Es gibt höchstens $\log{} n$
 Durchführungen der Verdopplung der sortierten Zeichen und darum kann die ganze
-Sortierung des Suffixarrays in O(N log N) ausgeführt werden mit dem Algorithmus
+Sortierung des Suffixarrays in $\mathcal{O}(n \log{} n)$ ausgeführt werden mit dem Algorithmus
 von Manber und Myers.
 
 \begin{lstlisting} [frame=single]
@@ -240,7 +240,7 @@ e = Prm[d]
 Prm[d] = e + Count[e]
 Count[e] = Count[e] + 1
 B2H[Prm[d]] = True
-for bucket[l,r]:         # in Reihenfolge der bisher erfolgten Sortierung der Buckets
+for bucket[l,r]:#in Reihenfolge der bisher erfolgten Sortierung
     for d in (Pos[c]-H) where c in [l,r]:
         e = Prm[d]
         Prm[d] = e + Count[e]
